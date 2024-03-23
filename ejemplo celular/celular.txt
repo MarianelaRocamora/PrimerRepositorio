@@ -1,0 +1,81 @@
+
+Ejemplo de agreagacion / composicion 
+
+public class Celular {
+    private String modelo;
+    private Bateria bateria; (COMPOSICION)
+    private int nroChips;
+    private Chip[] chips;(AGREGACION)
+
+	
+    //constructor
+    public Celular(String modelo, int cantMAh, String marcaBateria){
+        this.modelo=modelo;
+        this.bateria = new Bateria(cantMAh, marcaBateria);(COMPOSICON)
+        this.nroChips = 0;(INICIALIZAR EN 0 = AGREGACION)
+        this.chips = new Chip[2];
+    }
+    //metodos
+    public void morstrar(){
+        System.out.println("Modelo: "+modelo);
+        bateria.mostrar();
+        System.out.println("Número de chips: "+ nroChips);
+        for (int i=0; i < nroChips; i++){
+            chips[i].mostrar();
+        }
+    }
+    //agregacion
+    public void agregarChip(Chip nuevoChip){
+        if (nroChips < 2){
+            chips[nroChips]=nuevoChip;
+            nroChips++;
+        }
+    } 
+}
+--------------------------------------------------------------------
+public class Bateria {
+    private int mAh;
+    private String marca;
+
+    public Bateria(int mAh, String marca) {
+        this.mAh = mAh;
+        this.marca = marca;
+    }
+    
+    public void mostrar(){
+        System.out.println("Cantidad mAh: "+ mAh);
+        System.out.println("Marca: "+ marca);
+    }
+    }
+---------------------------------------------------------------------
+public class Chip {
+   private String empresa;
+   private int numero;
+
+    public Chip(String empresa, int numero) {
+        this.empresa = empresa;
+        this.numero = numero;
+    }
+   
+    public void mostrar(){
+        System.out.println("\tEmpresa: "+ empresa);
+        System.out.println("\tNumero de cel: "+ numero);
+    }  
+}
+------------------------------------------------------------------------
+public class AgregacionComposicion {
+
+    public static void main(String[] args) {
+        Celular c1= new Celular ("A10PRO", 3400, "Samsung");
+            
+        Chip entel = new Chip("Entel", 7457854);
+        Chip tigo = new Chip("Tigo", 83743843);
+        
+        c1.agregarChip(entel);
+        c1.agregarChip(tigo);
+        
+        c1.morstrar();
+        
+    }
+    
+}
